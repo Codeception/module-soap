@@ -1,6 +1,6 @@
 # Soap module for Codeception
 
-[![Build Status](https://travis-ci.org/Codeception/module-soap.svg?branch=master)](https://travis-ci.org/Codeception/module-soap)
+![Build Status](https://github.com/Codeception/module-soap/workflows/CI/badge.svg)
 
 ## Installation
 
