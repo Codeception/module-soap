@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Codeception\Util\Stub;
 use Codeception\Util\Soap as SoapUtil;
 
@@ -7,7 +9,7 @@ use Codeception\Util\Soap as SoapUtil;
  * Class SoapTest
  * @group appveyor
  */
-class SoapTest extends \Codeception\PHPUnit\TestCase
+final class SoapTest extends \Codeception\PHPUnit\TestCase
 {
 
     /**
@@ -59,8 +61,8 @@ class SoapTest extends \Codeception\PHPUnit\TestCase
         $dom = new \DOMDocument();
         $dom->load($this->layout);
         $body = $dom->createElement('item');
-        $body->appendChild($dom->createElement('id', 1));
-        $body->appendChild($dom->createElement('subitem', 2));
+        $body->appendChild($dom->createElement('id', '1'));
+        $body->appendChild($dom->createElement('subitem', '2'));
         $request = $dom->createElement('ns:KillHumans');
         $request->appendChild($body);
         $dom->documentElement->getElementsByTagName('Body')->item(0)->appendChild($request);
@@ -72,8 +74,8 @@ class SoapTest extends \Codeception\PHPUnit\TestCase
         $dom = new \DOMDocument();
         $dom->load($this->layout);
         $body = $dom->createElement('item');
-        $body->appendChild($dom->createElement('id', 1));
-        $body->appendChild($dom->createElement('subitem', 2));
+        $body->appendChild($dom->createElement('id', '1'));
+        $body->appendChild($dom->createElement('subitem', '2'));
         $request = $dom->createElement('ns:KillHumans');
         $request->appendChild($body);
         $dom->documentElement->getElementsByTagName('Body')->item(0)->appendChild($request);
