@@ -111,7 +111,7 @@ EOF;
         $this->xmlStructure = null;
     }
 
-    public function _depends()
+    public function _depends(): array
     {
         return [InnerBrowser::class => $this->dependencyMessage];
     }
@@ -173,8 +173,6 @@ EOF;
      *      </AuthHeader>
      *   </soapenv:Header>
      * ```
-     *
-     * @param string $header
      */
     public function haveSoapHeader(string $header, array $params = []): void
     {
@@ -257,10 +255,7 @@ EOF;
      * $dom = new \DOMDocument();
      * $dom->load($file);
      * $I->seeSoapRequestIncludes($dom);
-     *
      * ```
-     *
-     * @param string $xml
      */
     public function seeSoapResponseEquals(string $xml): void
     {
@@ -300,7 +295,6 @@ EOF;
      *
      * Parameter can be passed either as XmlBuilder, DOMDocument, DOMNode, XML string, or array (if no attributes).
      *
-     * @param string $xml
      */
     public function dontSeeSoapResponseEquals(string $xml): void
     {
@@ -339,7 +333,6 @@ EOF;
      * This method does not use schema for validation.
      * This method does not require path from root to match the structure.
      *
-     * @param string $xml
      */
     public function seeSoapResponseContainsStructure(string $xml): void
     {
@@ -350,7 +343,6 @@ EOF;
 
     /**
      * Opposite to `seeSoapResponseContainsStructure`
-     * @param string $xml
      */
     public function dontSeeSoapResponseContainsStructure(string $xml): void
     {
@@ -409,7 +401,6 @@ EOF;
      * Element is matched by either CSS or XPath
      *
      * @version 1.1
-     * @param string $cssOrXPath
      */
     public function grabTextContentFrom(string $cssOrXPath): string
     {
@@ -422,8 +413,6 @@ EOF;
      * Element is matched by either CSS or XPath
      *
      * @version 1.1
-     * @param string $cssOrXPath
-     * @param string $attribute
      */
     public function grabAttributeFrom(string $cssOrXPath, string $attribute): string
     {
