@@ -8,7 +8,7 @@ use Codeception\Lib\ModuleContainer;
 use Codeception\Module\SOAP;
 use Codeception\Module\UniversalFramework;
 use Codeception\PHPUnit\TestCase;
-use Codeception\Util\Stub;
+use Codeception\Stub;
 use Codeception\Util\Soap as SoapUtil;
 
 /**
