@@ -21,6 +21,8 @@ composer require "codeception/module-soap" --dev
 
 See [the module documentation](https://codeception.com/docs/modules/SOAP).
 
+[Changelog](https://github.com/Codeception/module-soap/releases)
+
 ## License
 
 `Codeception Module SOAP` is open-sourced software licensed under the [MIT](/LICENSE) License.
