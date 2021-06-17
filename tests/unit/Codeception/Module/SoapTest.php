@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Codeception\Util\Stub;
+use Codeception\Stub;
 use Codeception\Util\Soap as SoapUtil;
 
 /**
@@ -21,7 +21,7 @@ final class SoapTest extends \Codeception\PHPUnit\TestCase
 
     public function _setUp()
     {
-        $container = \Codeception\Util\Stub::make('Codeception\Lib\ModuleContainer');
+        $container = Stub::make('Codeception\Lib\ModuleContainer');
         $frameworkModule = new \Codeception\Module\UniversalFramework($container);
         $frameworkModule->client = Stub::makeEmpty('\Codeception\Lib\Connector\Universal');
         $this->module = new \Codeception\Module\SOAP($container);

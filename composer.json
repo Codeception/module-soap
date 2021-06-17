@@ -12,13 +12,14 @@
 	],
 	"minimum-stability": "RC",
 	"require": {
-		"php": "^7.1 || ^8.0",
+		"php": "^7.3 || ^8.0",
 		"ext-dom": "*",
-		"codeception/codeception": "^4.0",
-		"codeception/lib-innerbrowser": "^1.0"
+		"codeception/codeception": "^5.0 || *@dev",
+		"codeception/lib-innerbrowser": "^1.5 || *@dev"
 	},
 	"require-dev": {
-		"codeception/util-universalframework": "^1.0"
+		"codeception/util-universalframework": "^1.0 || *@dev",
+		"codeception/stub": "^3.7"
 	},
 	"autoload": {
 		"classmap": [
