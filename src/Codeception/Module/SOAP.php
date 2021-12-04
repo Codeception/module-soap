@@ -15,6 +15,7 @@ use Codeception\Util\Soap as SoapUtils;
 use Codeception\Util\XmlBuilder;
 use Codeception\Util\XmlStructure;
 use DOMDocument;
+use DOMNode;
 use ErrorException;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\BrowserKit\AbstractBrowser;
@@ -66,10 +67,7 @@ class SOAP extends Module implements DependsOnModule
      */
     protected $requiredFields = ['endpoint'];
 
-    /**
-     * @var string
-     */
-    protected $dependencyMessage = <<<EOF
+    protected string $dependencyMessage = <<<EOF
 Example using PhpBrowser as backend for SOAP module.
 --
 modules:
@@ -80,34 +78,23 @@ modules:
 Framework modules can be used as well for functional testing of SOAP API.
 EOF;
 
-    /**
-     * @var AbstractBrowser
-     */
-    public $client;
+    public AbstractBrowser $client;
+
+    public bool $isFunctional = false;
 
     /**
-     * @var bool
+     * @var DOMNode|DOMDocument|null
      */
-    public $isFunctional = false;
+    public $xmlRequest = null;
 
     /**
-     * @var DOMDocument
+     * @var DOMNode|DOMDocument|null
      */
-    public $xmlRequest;
-    /**
-     * @var DOMDocument
-     */
-    public $xmlResponse;
+    public $xmlResponse = null;
 
-    /**
-     * @var XmlStructure
-     */
-    protected $xmlStructure;
+    protected ?XmlStructure $xmlStructure = null;
 
-    /**
-     * @var InnerBrowser
-     */
-    protected $connectionModule;
+    protected ?InnerBrowser $connectionModule = null;
 
     public function _before(TestInterface $test): void
     {
@@ -142,6 +129,7 @@ EOF;
         if (!$this->client) {
             throw new ModuleRequireException($this, 'Connection client is not available.');
         }
+
         return $this->client;
     }
 
@@ -150,6 +138,7 @@ EOF;
         if (!$this->xmlResponse) {
             throw new ModuleException($this, "No XML response, use `\$I->sendSoapRequest` to receive it");
         }
+
         return $this->xmlResponse;
     }
 
@@ -158,6 +147,7 @@ EOF;
         if (!$this->xmlStructure) {
             $this->xmlStructure = new XmlStructure($this->getXmlResponse());
         }
+
         return $this->xmlStructure;
     }
 
@@ -440,8 +430,9 @@ EOF;
         $el = $this->getXmlStructure()->matchElement($cssOrXPath);
         $elHasAttribute = $el->hasAttribute($attribute);
         if (!$elHasAttribute) {
-            $this->fail(sprintf('Attribute not found in element matched by \'%s\'', $cssOrXPath));
+            $this->fail(sprintf("Attribute not found in element matched by '%s'", $cssOrXPath));
         }
+
         return $el->getAttribute($attribute);
     }
 
@@ -467,12 +458,13 @@ EOF;
         $xml->appendChild($root);
         $root->setAttribute('xmlns:ns', $this->getSchema());
         $root->setAttribute('xmlns:soapenv', $soap_schema_url);
-        
+
         $body = $xml->createElementNS($soap_schema_url, 'soapenv:Body');
         $header = $xml->createElementNS($soap_schema_url, 'soapenv:Header');
         $root->appendChild($header);
-        
+
         $root->appendChild($body);
+
         $this->xmlRequest = $xml;
         return $xml;
     }
@@ -494,7 +486,7 @@ EOF;
     }
 
     /**
-     * @return string|bool
+     * @return string|false
      */
     protected function processInternalRequest(string $action, string $body)
     {
@@ -502,13 +494,14 @@ EOF;
         try {
             $this->getClient()->setServerParameter('HTTP_HOST', 'localhost');
             $this->processRequest($action, $body);
-        } catch (ErrorException $e) {
+        } catch (ErrorException $exception) {
             // Zend_Soap outputs warning as an exception
-            if (strpos($e->getMessage(), 'Warning: Cannot modify header information') === false) {
+            if (strpos($exception->getMessage(), 'Warning: Cannot modify header information') === false) {
                 ob_end_clean();
-                throw $e;
+                throw $exception;
             }
         }
+
         $response = ob_get_contents();
         ob_end_clean();
         return $response;

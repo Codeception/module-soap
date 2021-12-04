@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+use Codeception\Configuration;
+use Codeception\Lib\Connector\Universal;
+use Codeception\Lib\ModuleContainer;
+use Codeception\Module\SOAP;
+use Codeception\Module\UniversalFramework;
+use Codeception\PHPUnit\TestCase;
 use Codeception\Util\Stub;
 use Codeception\Util\Soap as SoapUtil;
 
@@ -9,44 +15,42 @@ use Codeception\Util\Soap as SoapUtil;
  * Class SoapTest
  * @group appveyor
  */
-final class SoapTest extends \Codeception\PHPUnit\TestCase
+final class SoapTest extends TestCase
 {
+    protected ?SOAP $module = null;
 
-    /**
-     * @var \Codeception\Module\Soap
-     */
-    protected $module = null;
-
-    protected $layout;
+    protected ?string $layout = null;
 
     public function _setUp()
     {
-        $container = \Codeception\Util\Stub::make('Codeception\Lib\ModuleContainer');
-        $frameworkModule = new \Codeception\Module\UniversalFramework($container);
-        $frameworkModule->client = Stub::makeEmpty('\Codeception\Lib\Connector\Universal');
-        $this->module = new \Codeception\Module\SOAP($container);
+        $container = Stub::make(ModuleContainer::class);
+        $frameworkModule = new UniversalFramework($container);
+        $frameworkModule->client = Stub::makeEmpty(Universal::class);
+        $this->module = new SOAP($container);
         $this->module->_setConfig(array(
             'schema' => 'http://www.w3.org/2001/xml.xsd',
             'endpoint' => 'http://codeception.com/api/wsdl'
         ));
         $this->module->_inject($frameworkModule);
-        $this->layout = \Codeception\Configuration::dataDir().'/layout.xml';
+
+        $this->layout = Configuration::dataDir().'/layout.xml';
         $this->module->isFunctional = true;
-        $this->module->_before(Stub::makeEmpty('\Codeception\Test\Test'));
+        $this->module->_before(Stub::makeEmpty(\Codeception\Test\Test::class));
     }
-    
+
     public function testXmlIsBuilt()
     {
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->load($this->layout);
         $this->assertXmlStringEqualsXmlString($dom->saveXML(), $this->module->xmlRequest->saveXML());
     }
-    
+
     public function testBuildHeaders()
     {
         $this->module->haveSoapHeader('AuthHeader', ['username' => 'davert', 'password' => '123456']);
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->load($this->layout);
+
         $header = $dom->createElement('AuthHeader');
         $header->appendChild($dom->createElement('username', 'davert'));
         $header->appendChild($dom->createElement('password', '123456'));
@@ -58,11 +62,13 @@ final class SoapTest extends \Codeception\PHPUnit\TestCase
     {
         $this->module->sendSoapRequest('KillHumans', "<item><id>1</id><subitem>2</subitem></item>");
         $this->assertNotNull($this->module->xmlRequest);
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->load($this->layout);
+
         $body = $dom->createElement('item');
         $body->appendChild($dom->createElement('id', '1'));
         $body->appendChild($dom->createElement('subitem', '2'));
+
         $request = $dom->createElement('ns:KillHumans');
         $request->appendChild($body);
         $dom->documentElement->getElementsByTagName('Body')->item(0)->appendChild($request);
@@ -71,11 +77,13 @@ final class SoapTest extends \Codeception\PHPUnit\TestCase
 
     public function testBuildRequestWithDomNode()
     {
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->load($this->layout);
+
         $body = $dom->createElement('item');
         $body->appendChild($dom->createElement('id', '1'));
         $body->appendChild($dom->createElement('subitem', '2'));
+
         $request = $dom->createElement('ns:KillHumans');
         $request->appendChild($body);
         $dom->documentElement->getElementsByTagName('Body')->item(0)->appendChild($request);
@@ -83,7 +91,7 @@ final class SoapTest extends \Codeception\PHPUnit\TestCase
         $this->module->sendSoapRequest('KillHumans', $body);
         $this->assertXmlStringEqualsXmlString($dom->saveXML(), $this->module->xmlRequest->saveXML());
     }
-    
+
     public function testSeeXmlIncludes()
     {
         $dom = new DOMDocument();
@@ -111,7 +119,6 @@ final class SoapTest extends \Codeception\PHPUnit\TestCase
         $this->module->dontSeeSoapResponseContainsXPath('//doc/a[@a2=2 and @a31]');
     }
 
-
     public function testSeeXmlEquals()
     {
         $dom = new DOMDocument();
@@ -133,7 +140,7 @@ final class SoapTest extends \Codeception\PHPUnit\TestCase
                 ->val('123');
         $this->module->seeSoapResponseIncludes($xml);
     }
-    
+
     public function testGrabTextFrom()
     {
         $dom = new DOMDocument();
