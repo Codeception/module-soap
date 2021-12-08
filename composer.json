@@ -15,7 +15,7 @@
 		"php": "^7.4 | ^8.0",
 		"ext-dom": "*",
 		"codeception/codeception": "^4.1",
-		"codeception/lib-innerbrowser": "^1.0"
+		"codeception/lib-innerbrowser": "^2.0"
 	},
 	"require-dev": {
 		"codeception/util-universalframework": "^1.0"
