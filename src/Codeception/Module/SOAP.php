@@ -78,7 +78,7 @@ modules:
 Framework modules can be used as well for functional testing of SOAP API.
 EOF;
 
-    public AbstractBrowser $client;
+    public ?AbstractBrowser $client;
 
     public bool $isFunctional = false;
 
