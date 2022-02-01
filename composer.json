@@ -19,7 +19,7 @@
 	},
 	"require-dev": {
 		"codeception/util-universalframework": "^1.0 | *@dev",
-		"codeception/stub": "^3.7"
+		"codeception/stub": "^4.0"
 	},
 	"autoload": {
 		"classmap": [
