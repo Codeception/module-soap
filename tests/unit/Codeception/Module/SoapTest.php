@@ -148,7 +148,5 @@ final class SoapTest extends TestCase
         $dom->loadXML('<?xml version="1.0" encoding="UTF-8"?><doc><node>123</node></doc>');
         $res = $this->module->grabTextContentFrom('doc node');
         $this->assertEquals('123', $res);
-        $res = $this->module->grabTextContentFrom('descendant-or-self::doc/descendant::node');
-        $this->assertEquals('123', $res);
     }
 }
