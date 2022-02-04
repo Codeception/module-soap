@@ -8,7 +8,7 @@ use Codeception\Lib\ModuleContainer;
 use Codeception\Module\SOAP;
 use Codeception\Module\UniversalFramework;
 use Codeception\PHPUnit\TestCase;
-use Codeception\Util\Stub;
+use Codeception\Stub;
 use Codeception\Util\Soap as SoapUtil;
 
 /**
@@ -147,8 +147,6 @@ final class SoapTest extends TestCase
         $this->module->xmlResponse = $dom;
         $dom->loadXML('<?xml version="1.0" encoding="UTF-8"?><doc><node>123</node></doc>');
         $res = $this->module->grabTextContentFrom('doc node');
-        $this->assertEquals('123', $res);
-        $res = $this->module->grabTextContentFrom('descendant-or-self::doc/descendant::node');
         $this->assertEquals('123', $res);
     }
 }

@@ -111,7 +111,7 @@ EOF;
         $this->xmlStructure = null;
     }
 
-    public function _depends()
+    public function _depends(): array
     {
         return [InnerBrowser::class => $this->dependencyMessage];
     }

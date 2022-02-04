@@ -1,31 +1,35 @@
 {
-	"name": "codeception/module-soap",
-	"description": "Soap module for Codeception",
-	"keywords": [ "codeception", "soap" ],
-	"homepage": "https://codeception.com/",
-	"type": "library",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Michael Bodnarchuk"
-		}
-	],
-	"minimum-stability": "RC",
-	"require": {
-		"php": "^7.4 | ^8.0",
-		"ext-dom": "*",
-		"codeception/codeception": "^4.1",
-		"codeception/lib-innerbrowser": "^2.0"
-	},
-	"require-dev": {
-		"codeception/util-universalframework": "^1.0"
-	},
-	"autoload": {
-		"classmap": [
-			"src/"
-		]
-	},
-	"config": {
-		"classmap-authoritative": true
-	}
+    "name": "codeception/module-soap",
+    "description": "Soap module for Codeception",
+    "keywords": [
+        "codeception",
+        "soap"
+    ],
+    "homepage": "https://codeception.com/",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Bodnarchuk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.0",
+        "ext-dom": "*",
+        "codeception/codeception": "^5.0.0-alpha1",
+        "codeception/lib-innerbrowser": "^2.0.2"
+    },
+    "require-dev": {
+        "codeception/util-universalframework": "^1.0",
+        "codeception/stub": "^4.0"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "config": {
+        "classmap-authoritative": true
+    }
 }
