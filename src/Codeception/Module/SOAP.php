@@ -54,9 +54,9 @@ use Symfony\Component\BrowserKit\AbstractBrowser;
 class SOAP extends Module implements DependsOnModule
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $config = [
+    protected array $config = [
         'schema' => "",
         'schema_url' => 'http://schemas.xmlsoap.org/soap/envelope/',
         'framework_collect_buffer' => true
@@ -65,7 +65,7 @@ class SOAP extends Module implements DependsOnModule
     /**
      * @var string[]
      */
-    protected $requiredFields = ['endpoint'];
+    protected array $requiredFields = ['endpoint'];
 
     protected string $dependencyMessage = <<<EOF
 Example using PhpBrowser as backend for SOAP module.

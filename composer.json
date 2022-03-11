@@ -14,7 +14,7 @@
 	"require": {
 		"php": "^8.0",
 		"ext-dom": "*",
-		"codeception/codeception": "^5.0.0-alpha1",
+		"codeception/codeception": "^5.0.0-alpha3",
 		"codeception/lib-innerbrowser": "^2.0 | *@dev",
 		"codeception/lib-xml": "^1.0"
 	},
