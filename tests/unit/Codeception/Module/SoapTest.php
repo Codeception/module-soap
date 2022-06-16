@@ -29,7 +29,7 @@ final class SoapTest extends TestCase
         $this->module = new SOAP($container);
         $this->module->_setConfig(array(
             'schema' => 'http://www.w3.org/2001/xml.xsd',
-            'endpoint' => 'http://codeception.com/api/wsdl'
+            'endpoint' => 'https://codeception.com/api/wsdl'
         ));
         $this->module->_inject($frameworkModule);
 
