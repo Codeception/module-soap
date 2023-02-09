@@ -10,16 +10,16 @@
 			"name": "Michael Bodnarchuk"
 		}
 	],
-	"minimum-stability": "dev",
+	"minimum-stability": "RC",
 	"require": {
 		"php": "^8.0",
 		"ext-dom": "*",
-		"codeception/codeception": "^5.0.0-alpha3",
-		"codeception/lib-innerbrowser": "^2.0 | *@dev",
+		"codeception/codeception": "^5.0.8",
+		"codeception/lib-innerbrowser": "^3.0 | ^4.0",
 		"codeception/lib-xml": "^1.0"
 	},
 	"require-dev": {
-		"codeception/util-universalframework": "^1.0 | *@dev",
+		"codeception/util-universalframework": "^1.0",
 		"codeception/stub": "^4.0"
 	},
 	"autoload": {
