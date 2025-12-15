@@ -19,7 +19,7 @@
 		"codeception/lib-xml": "^1.0"
 	},
 	"require-dev": {
-		"codeception/util-universalframework": "^1.0",
+		"codeception/util-universalframework": "^2.0",
 		"codeception/stub": "^4.0"
 	},
 	"autoload": {
