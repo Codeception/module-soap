@@ -12,7 +12,7 @@
 	],
 	"minimum-stability": "RC",
 	"require": {
-		"php": "^8.0",
+		"php": "^8.2",
 		"ext-dom": "*",
 		"codeception/codeception": "^5.0.8",
 		"codeception/lib-innerbrowser": "^3.0 | ^4.0",
