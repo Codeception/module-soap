@@ -24,8 +24,10 @@ final class SoapTest extends TestCase
     public function _setUp()
     {
         $container = Stub::make(ModuleContainer::class);
-        $frameworkModule = new UniversalFramework($container);
-        $frameworkModule->client = Stub::makeEmpty(Universal::class);
+        $frameworkModule = new UniversalFramework($container, [
+            'index' => '',
+        ]);
+        $frameworkModule->_initialize();
         $this->module = new SOAP($container);
         $this->module->_setConfig(array(
             'schema' => 'http://www.w3.org/2001/xml.xsd',
